@@ -43,9 +43,7 @@ void setup() {
   analogReference(INTERNAL);
   Serial.begin(115200);
   pinMode( FET_PIN, OUTPUT);
-  pinMode( 13, OUTPUT);
   digitalWrite( FET_PIN, LOW);
-  digitalWrite( 13, LOW);
   delay(100);
 
   initLcd();
@@ -59,12 +57,10 @@ void loop() {
     if ( discharge == false) {
       delay( 1000*5);
       digitalWrite( FET_PIN, HIGH);
-      digitalWrite( 13, HIGH);
       discharge = true;
     }
   } else if ( discharge == true) {
     digitalWrite( FET_PIN, LOW);
-    digitalWrite( 13, LOW);
     done = true;
   }
 
@@ -87,7 +83,6 @@ void loop() {
 
     current = float(adcdif23) * multiplier * 10.0;
     digitalWrite( FET_PIN, LOW);
-    digitalWrite( 13, LOW);
     delay( 500);
     battery = 0.0;
     for ( int i = 0; i < 10; i++) {
@@ -99,7 +94,6 @@ void loop() {
     BattIR = (( battery - prev_battery) / (current / 1000.0)) * 1000.0;
     RChkDone = true;
     digitalWrite( FET_PIN, HIGH);
-    digitalWrite( 13, HIGH);
     prevMillis += (millis() - millisSkip);
     delay(100);
   }
